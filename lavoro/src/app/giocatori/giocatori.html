@@ -1,0 +1,13 @@
+<h2>Basic Request</h2>
+<button type="button" (click)="makeRequest()">Make Request</button>
+@if(loading)
+{
+    <div>loading...</div>
+}
+<pre>{{data | json}}</pre>
+
+<ul>
+  <li *ngFor="let player of players">
+    ⚽ <b>{{ player }}</b>
+  </li>
+</ul>
