@@ -1,13 +1,153 @@
-<h2>Basic Request</h2>
-<button type="button" (click)="makeRequest()">Make Request</button>
-@if(loading)
-{
-    <div>loading...</div>
-}
-<pre>{{data | json}}</pre>
 
-<ul>
-  <li *ngFor="let player of players">
-    ⚽ <b>{{ player }}</b>
-  </li>
-</ul>
+<div class="minimal-container">
+  <header class="minimal-header">
+    <h1>Lista Giocatori</h1>
+    <button class="minimal-btn" (click)="makeRequest()">Aggiorna Lista</button>
+  </header>
+  @if(loading)
+  {
+    <div class="minimal-alert">Caricamento...</div>
+  }
+  <div class="minimal-grid">
+    <ng-container *ngFor="let player of players">
+      <div class="minimal-card">
+        <ng-container *ngIf="player.img; else noImg">
+          <img [src]="player.img" alt="{{ player.nome }}" class="minimal-img-large" loading="lazy" />
+        </ng-container>
+        <ng-template #noImg>
+          <div class="minimal-avatar minimal-avatar-large">{{ player.nome[0] }}</div>
+        </ng-template>
+        <div class="minimal-info">
+          <div class="minimal-name">{{ player.nome }}</div>
+          <div class="minimal-role" *ngIf="player.ruolo">{{ player.ruolo }}</div>
+          <div class="minimal-team" *ngIf="player.squadra">{{ player.squadra }}</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <pre class="minimal-json">{{data | json}}</pre>
+</div>
+
+<style>
+  body {
+    background: #f7f7f9;
+    font-family: 'Inter', Arial, sans-serif;
+    color: #222;
+    margin: 0;
+  }
+  .minimal-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px;
+  }
+  .minimal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  .minimal-header h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -1px;
+  }
+  .minimal-btn {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .minimal-btn:hover {
+    background: #444;
+  }
+  .minimal-alert {
+    background: #e0e0e0;
+    color: #444;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 1.1rem;
+  }
+  .minimal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .minimal-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 18px 20px 18px;
+    transition: box-shadow 0.18s, transform 0.18s;
+    border: 1px solid #ececec;
+  }
+  .minimal-card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    transform: translateY(-2px) scale(1.025);
+    border-color: #bdbdbd;
+  }
+  .minimal-img-large {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border: 2px solid #ececec;
+    background: #f3f3f3;
+    display: block;
+    transition: box-shadow 0.18s;
+  }
+  .minimal-avatar-large {
+    width: 110px;
+    height: 110px;
+    background: #e9e9ef;
+    color: #222;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.7rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: box-shadow 0.18s;
+  }
+  .minimal-info {
+    text-align: center;
+  }
+  .minimal-name {
+    font-size: 1.13rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .minimal-role {
+    font-size: 0.98rem;
+    color: #5a5a5a;
+    margin-bottom: 2px;
+  }
+  .minimal-team {
+    font-size: 0.95rem;
+    color: #8a8a8a;
+  }
+  .minimal-json {
+    margin-top: 32px;
+    background: #f3f3f6;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.98rem;
+    color: #444;
+    overflow-x: auto;
+  }
+</style>
