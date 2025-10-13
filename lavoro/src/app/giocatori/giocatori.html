@@ -9,13 +9,13 @@
     <div class="minimal-alert">Caricamento...</div>
   }
   <div class="minimal-grid">
-    <ng-container *ngFor="let player of players">
+    @for (player of players; track player) {
       <div class="minimal-card">
         <ng-container *ngIf="player.img; else noImg">
           <img [src]="player.img" alt="{{ player.nome }}" class="minimal-img-large" loading="lazy" />
         </ng-container>
         <ng-template #noImg>
-          <div class="minimal-avatar minimal-avatar-large">{{ player.nome[0] }}</div>
+          <div class="minimal-avatar minimal-avatar-large">{{ player.nome }}</div>
         </ng-template>
         <div class="minimal-info">
           <div class="minimal-name">{{ player.nome }}</div>
@@ -23,7 +23,7 @@
           <div class="minimal-team" *ngIf="player.squadra">{{ player.squadra }}</div>
         </div>
       </div>
-    </ng-container>
+    }
   </div>
   <pre class="minimal-json">{{data | json}}</pre>
 </div>
