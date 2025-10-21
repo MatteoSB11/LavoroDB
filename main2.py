@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS players (
     id INT PRIMARY KEY,
     player VARCHAR(100),
     team VARCHAR(100),
-    goals INT
+    goals INT,
+    image text
 )
 ''')
 
@@ -25,9 +26,9 @@ with open('players.csv', newline='', encoding='utf-8') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         cur.execute('''
-            REPLACE INTO players (id, player, team, goals)
-            VALUES (%s, %s, %s, %s)
-        ''', (row['id'], row['player'], row['team'], row['goals']))
+            REPLACE INTO players (id, player, team, goals,image)
+            VALUES (%s, %s, %s, %s, %s)
+        ''', (row['id'], row['player'], row['team'], row['goals'], row['image']))
 
 conn.commit()
 cur.close()
